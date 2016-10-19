@@ -1,0 +1,49 @@
+<h1>$_SERVER</h1>Array
+(
+    [HTTP_ACCEPT_ENCODING] => identity
+    [HTTP_HOST] => site1.loc
+    [HTTP_COOKIE] => sania567890=!@#$%
+    [PATH] => C:\Program Files\ActiveState Komodo Edit 8\;C:\Program Files\PHP\;C:\Inprise\vbroker\bin;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\system32\WBEM;C:\Program Files\Common Files\Adobe\AGL;C:\PROGRA~1\Borland\Delphi6\Bin;C:\PROGRA~1\Borland\Delphi6\Projects\Bpl;C:\;C:\Python27;C:\FPC\2.6.2\bin\i386-Win32
+    [SystemRoot] => C:\WINDOWS
+    [COMSPEC] => C:\WINDOWS\system32\cmd.exe
+    [PATHEXT] => .COM;.EXE;.BAT;.CMD;.VBS;.VBE;.JS;.JSE;.WSF;.WSH
+    [WINDIR] => C:\WINDOWS
+    [SERVER_SIGNATURE] => 
+    [SERVER_SOFTWARE] => Apache/2.2.22 (Win32) PHP/5.3.14
+    [SERVER_NAME] => site1.loc
+    [SERVER_ADDR] => 127.0.0.1
+    [SERVER_PORT] => 80
+    [REMOTE_ADDR] => 127.0.0.1
+    [DOCUMENT_ROOT] => C:/www3/site1
+    [SERVER_ADMIN] => admin@192.168.0.100
+    [SCRIPT_FILENAME] => C:/www3/site1/test_request.php
+    [REMOTE_PORT] => 3800
+    [GATEWAY_INTERFACE] => CGI/1.1
+    [SERVER_PROTOCOL] => HTTP/1.1
+    [REQUEST_METHOD] => GET
+    [QUERY_STRING] => name=sania&age=35
+    [REQUEST_URI] => /test_request.php?name=sania&age=35
+    [SCRIPT_NAME] => /test_request.php
+    [PHP_SELF] => /test_request.php
+    [REQUEST_TIME] => 1383763399
+)
+<h1>$_POST</h1>Array
+(
+)
+<h1>$_GET</h1>Array
+(
+    [name] => sania
+    [age] => 35
+)
+<h1>$_REQUEST</h1>Array
+(
+    [name] => sania
+    [age] => 35
+)
+<h1>$_SESSION</h1>Array
+(
+)
+<h1>$_COOKIE</h1>Array
+(
+    [sania567890] => !@#$%
+)

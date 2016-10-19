@@ -1,0 +1,693 @@
+Content-Type: multipart/related; start=<op.mhtml.1383077378063.0bcaa2042f5a5e70@192.168.0.100>; boundary=----------qpvg9DX2TJChqr1FO2FG13
+Content-Location: http://pygame.info/docs/tut/intro/intro.html
+Subject: =?utf-8?Q?Pygame=20Intro?=
+MIME-Version: 1.0
+
+------------qpvg9DX2TJChqr1FO2FG13
+Content-Disposition: inline; filename=intro.html
+Content-Type: text/html; charset=iso-8859-1; name=intro.html
+Content-ID: <op.mhtml.1383077378063.0bcaa2042f5a5e70@192.168.0.100>
+Content-Location: http://pygame.info/docs/tut/intro/intro.html
+Content-Transfer-Encoding: 8bit
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"> <!--
+TUTORIAL:Pygame Python Introduction
+-->
+<html>
+<head>
+  <meta http-equiv="content-type"
+ content="text/html; charset=ISO-8859-1">
+  <title>Pygame Intro</title>
+</head>
+<body>
+<h1 style="text-align: center;">Python Pygame Introduction</h1>
+<br>
+<h2 style="text-align: center;">by Pete Shinners</h2>
+<h3 style="text-align: center;">pete@shinners.org</h3>
+<br>
+<br>
+This article is an introduction to the <a href="http://www.pygame.org">Pygame
+library</a> for <a href="http://www.python.org">Python programmers</a>.
+The original version appeared in the <a href="http://www.pyzine.com/">Py
+Zine</a>, volume 1 issue 3. This version contains minor revisions, to
+create an all around better article. Pygame is a Python extension
+library that wraps the <a href="http://www.libsdl.org">SDL</a> library
+and it's helpers.<br>
+<br>
+<br>
+<h2>HISTORY</h2>
+Pygame started in the summer of 2000. Being a C programmer of many
+years, I discovered both Python and SDL at about the same time. You are
+already familiar with Python, which was at version 1.5.2. You may need
+an introduction to SDL, which is the Simple Directmedia Library.&nbsp;
+Created by Sam Lantinga, SDL is a cross-platform C library for
+controlling multimedia, comparable to DirectX. It has been used for
+hundreds commercial and open source games. I was impressed at how clean
+and straightforward both projects were and it wasn't long before I
+realized mixing Python and SDL was an interesting proposal.<br>
+<br>
+I discovered a small project already underway with exactly the same
+idea, PySDL. Created by Mark Baker, PySDL was a straightforward
+implementation of SDL as a Python extension. The interface was cleaner
+than a generic SWIG wrapping, but I felt it forced a "C style" of code.
+The sudden death of PySDL prompted me to take on a new project of my
+own.<br>
+<br>
+I wanted to put together a project that really took advantage of
+Python. My goal was to make it easy to do the simple things, and
+straightforward to do the difficult things. Pygame was started in
+October, 2000. Six months later Pygame version 1.0 was released.<br>
+<br>
+<br>
+<h2>TASTE</h2>
+I find the best way to understand a new library is to jump straight
+into an example. In the early days of Pygame, I created a bouncing ball
+animation with 7 lines of code. Let's take a look at a friendlier
+version of that same thing. This should be simple enough to follow
+along, and a complete breakdown follows.<br>
+<br>
+<div style="margin-left: 40px;"><span style="font-family: monospace;">&nbsp;1&nbsp;&nbsp;
+&nbsp;import sys, pygame<img src="ball.gif" title="" alt=""
+ style="width: 111px; height: 111px;" align="right"></span><br
+ style="font-family: monospace;">
+<span style="font-family: monospace;">&nbsp;2&nbsp;&nbsp;
+&nbsp;pygame.init()</span><br style="font-family: monospace;">
+<span style="font-family: monospace;">&nbsp;3</span><br
+ style="font-family: monospace;">
+<span style="font-family: monospace;">&nbsp;4&nbsp;&nbsp; &nbsp;size =
+width, height = 320, 240</span><br style="font-family: monospace;">
+<span style="font-family: monospace;">&nbsp;5&nbsp;&nbsp; &nbsp;speed =
+[2, 2]</span><br style="font-family: monospace;">
+<span style="font-family: monospace;">&nbsp;6&nbsp;&nbsp; &nbsp;black =
+0, 0, 0</span><br style="font-family: monospace;">
+<span style="font-family: monospace;">&nbsp;7</span><br
+ style="font-family: monospace;">
+<span style="font-family: monospace;">&nbsp;8&nbsp; &nbsp; screen =
+pygame.display.set_mode(size)</span><br style="font-family: monospace;">
+<span style="font-family: monospace;">&nbsp;9</span><br
+ style="font-family: monospace;">
+<span style="font-family: monospace;">10&nbsp;&nbsp; &nbsp;ball =
+pygame.image.load("ball.bmp")</span><br style="font-family: monospace;">
+<span style="font-family: monospace;">11&nbsp;&nbsp; &nbsp;ballrect =
+ball.get_rect()</span><br style="font-family: monospace;">
+<span style="font-family: monospace;">12</span><br
+ style="font-family: monospace;">
+<span style="font-family: monospace;">13&nbsp;&nbsp; &nbsp;while 1:</span><br
+ style="font-family: monospace;">
+<span style="font-family: monospace;">14&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;for event in pygame.event.get():</span><br
+ style="font-family: monospace;">
+<span style="font-family: monospace;">15&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;if event.type == pygame.QUIT: sys.exit()</span><br
+ style="font-family: monospace;">
+<span style="font-family: monospace;">16</span><br
+ style="font-family: monospace;">
+<span style="font-family: monospace;">17&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;ballrect = ballrect.move(speed)</span><br
+ style="font-family: monospace;">
+<span style="font-family: monospace;">18&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;if ballrect.left &lt; 0 or ballrect.right &gt; width:</span><br
+ style="font-family: monospace;">
+<span style="font-family: monospace;">19&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;speed[0] = -speed[0]</span><br
+ style="font-family: monospace;">
+<span style="font-family: monospace;">20&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;if ballrect.top &lt; 0 or ballrect.bottom &gt; height:</span><br
+ style="font-family: monospace;">
+<span style="font-family: monospace;">21&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;speed[1] = -speed[1]</span><br
+ style="font-family: monospace;">
+<span style="font-family: monospace;">22</span><br
+ style="font-family: monospace;">
+<span style="font-family: monospace;">23&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;screen.fill(black)</span><br style="font-family: monospace;">
+<span style="font-family: monospace;">24&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;screen.blit(ball, ballrect)</span><br
+ style="font-family: monospace;">
+<span style="font-family: monospace;">25&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;pygame.display.flip()</span><br>
+</div>
+<br>
+This is as simple as you can get for a bouncing animation. First we see
+importing and initializing Pygame is nothing noteworthy. The "<span
+ style="font-family: monospace;">import pygame</span>" imports the
+package with all the available Pygame modules. The call to "<span
+ style="font-family: monospace;">pygame.init()</span>" initializes each
+of these modules.<br>
+<br>
+On <span style="text-decoration: underline;">line 8</span> we create a
+graphical window with the call to "<span style="font-family: monospace;">pygame.display.set_mode()</span>".
+Pygame and SDL make this easy by defaulting to the best graphics modes
+for the graphics hardware. You can override the mode and SDL will
+compensate for anything the hardware cannot do. Pygame represents
+images as <span style="font-style: italic;">Surface</span> objects.
+The "<span style="font-family: monospace;">display.set_mode()</span>"
+function creates a new <span style="font-style: italic;">Surface</span>
+object that represents the actual displayed graphics. Any drawing you
+do to this Surface will become visible on the monitor.<br>
+<br>
+At <span style="text-decoration: underline;">line 10</span> we load
+our ball image. Pygame supports a variety of image formats through the
+SDL_image library, including JPG, PNG, TGA, and GIF. The "<span
+ style="font-family: monospace;">pygame.image.load()</span>" function
+returns us a Surface with the ball data. The Surface will keep any
+colorkey or alpha transparency from the file. After loading the ball
+image we create a variable named ballrect. Pygame comes with a
+convenient utility object type named <span style="font-style: italic;">Rect</span>,
+which represents a rectangular area. Later, in the animation part of
+the code, we will see what the <span style="font-style: italic;">Rect</span>
+objects can do.<br>
+<br>
+At this point, <span style="text-decoration: underline;">line 13</span>,
+our program is initialized and ready to run. Inside an infinite loop we
+check for user input, move the ball, and then draw the ball. If you are
+familiar with GUI programming, you have had experience with events and
+event loops. In Pygame this is no different, we check if a <span
+ style="font-style: italic;">QUIT</span> event has happened. If so we
+simply exit the program, Pygame will ensure everything is cleanly
+shutdown.<br>
+<br>
+It is time to update our position for the ball. <span
+ style="text-decoration: underline;">Lines 17 to 21</span> move the
+ballrect variable by the current speed. If the ball has moved outside
+the screen, we reverse the speed in that direction. Not exactly
+Newtonian physics, but it is all we need.<br>
+<br>
+On <span style="text-decoration: underline;">line 23</span> we erase
+the the screen by filling it with a black RGB color. If you have never
+worked with animations this may seem strange. You may be asking "Why do
+we need to erase anything, why don't we just move the ball on the
+screen?" That is not quite the way computer animation works. Animation
+is nothing more than a series of single images, when displayed in
+sequence does a very good job of fooling the human eye into seeing
+motion. The screen is just a single image that the user sees. If we did
+not take the time to erase the ball from the screen, we would actually
+see a "trail" of the ball as we continuously draw the ball in its new
+positions.<br>
+<br>
+On <span style="text-decoration: underline;">line 24</span> we draw
+the ball image onto the screen. Drawing of images is handled by the "<span
+ style="font-family: monospace;">Surface.blit()</span>" method. A blit
+basically means copying pixel colors from one image to another. We pass
+the blit method a source <span style="font-style: italic;">Surface</span>
+to copy from, and a position to place the source onto the destination.<br>
+<br>
+The last thing we need to do is actually update the visible display.
+Pygame manages the display with a double buffer. When we are finished
+drawing we call the "<span style="font-family: monospace;">pygame.display.flip()</span>"
+method. This makes everything we have drawn on the screen Surface
+become visible. This buffering makes sure we only see completely drawn
+frames on the screen. Without it, the user would see the half completed
+parts of the screen as they are being created.<br>
+<br>
+That concludes this short introduction to Pygame. Pygame also has
+modules to do things like input handling for the keyboard, mouse, and
+joystick. It can mix audio and decode streaming music. With the <span
+ style="font-style: italic;">Surfaces</span> you can draw simple
+shapes, rotate, scale, the picture.&nbsp; Even manipulate the pixels of
+an image in realtime as Numeric Python arrays. There is MPEG video
+playback, and audio CD support. Pygame also has the ability to act as a
+cross platform display layer for PyOpenGL. Most of the Pygame modules
+are written in C, few are actually done in Python.<br>
+<br>
+The Pygame website has full reference documentation for every Pygame
+function and tutorials for all ranges of users. The Pygame source comes
+with many examples of things like monkey punching and UFO shooting.<br>
+<br>
+<br>
+<h2>PYTHON AND GAMING</h2>
+"Is Python suitable for gaming?" The answer is, "It depends on the
+game."<br>
+<br>
+Python is actually quite capable at running games. It will likely even
+surprise you how much is possible in under 30 milliseconds. Still, it
+is not hard to reach the ceiling once your game begins to get more
+complex. Any game running in realtime will be making full use of the
+computer.<br>
+<br>
+<img src="blade.jpg" title="" alt=""
+ style="width: 200px; height: 150px;" align="right">Over the past
+several years there has been an interesting trend in game development,
+the move towards higher level languages. Usually a game is split into
+two major parts. The game engine, which must be as fast as possible,
+and the game logic, which makes the engine actually do something. It
+wasn't long ago when the engine of game was written in assembly, with
+portions written in C. Nowadays, C has moved to the game engine, while
+often the game itself is written in higher level scripting languages.
+Games like Quake3 and Unreal run these scripts as portable bytecode.<br>
+<br>
+In early 2001, developer Rebel Act Studios finished their game,
+Severance: Blade of Darkness. Using their own custom 3D engine, the
+rest of the game is written with Python. The game is a bloody action
+3rd person perspective fighter. You control medieval warriors into
+intricate decapitating combination attacks while exploring dungeons and
+castles. You can download third party addons for this game, and find
+they are nothing more than Python source files.<br>
+<br>
+More recently, Python has been used a variety of games like Freedom
+Force, and Humungous' Backyard Sports Series.<br>
+<br>
+<img src="freedom.jpg" title="" alt=""
+ style="width: 200px; height: 150px;" align="right">Pygame and SDL
+serve as an excellent C engine for 2D games. Games will still find the
+largest part of their runtime is spent inside SDL handling the
+graphics. SDL can take advantage of graphics hardware acceleration.
+Enabling this can change a game from running around 40 frames per
+second to over 200 frames per second. When you see your Python game
+running at 200 frames per second, you realize that Python and games can
+work together.<br>
+<br>
+It is impressive how well both Python and SDL work on multiple
+platforms. For example, in May of 2001 I released my own full Pygame
+project, SolarWolf, an arcade style action game. One thing that has
+surprised me is that one year later there has been no need for any
+patches, bug fixes, or updates. The game was developed entirely on
+windows, but runs on Linux, Mac OSX, and many Unixes without any extra
+work on my end.<br>
+<br>
+Still, there are very clear limitations. The best way to manage
+hardware accelerated graphics is not always the way to get fastest
+results from software rendering. Hardware support is not available on
+all platforms. When a game gets more complex, it often must commit to
+one or the other. SDL has some other design limitations, things like
+full screen scrolling graphics can quickly bring your game down to
+unplayable speeds. While SDL is not suitable all types of games,
+remember companies like Loki have used SDL to run a wide variety of
+retail quality titles.<br>
+<br>
+Pygame is faily low level when it comes to writing games. You'll
+quickly find yourself needing to wrap common functions into your own
+game environment. The great thing abuot this is there is nothing inside
+pygame to get in your way. Your program is in full control of
+everything. The side effect of that is you will find yourself borrowing
+a lot of code to get a more advanced framework put together. You'll
+need a better understanding of what you are doing.<br>
+<br>
+<br>
+<h2>CLOSING</h2>
+<table cellpadding="2" cellspacing="2" border="1"
+ style="text-align: left; width: 100%; background-color: rgb(255, 255, 204);">
+  <tbody>
+  </tbody>
+</table>
+Developing games is very rewarding, there is something exciting about
+being able to see and interact with the code you've written. Pygame
+currently has almost 30 other projects using it. Several of them are
+ready to play now. You may be surprised to visit the Pygame website,
+and see what other users have been able to do with Python.<br>
+<br>
+One thing that has caught my attention is the amount of people coming
+to Python for the first time to try game development. I can see why
+games are a draw for new programmers, but it can be difficult since
+creating games requires a firmer understanding of the language. I've
+tried to support this group of users by writing many examples and
+Pygame tutorials for people new to these concepts.<br>
+<br>
+In the end, my advice is to keep it simple. I cannot stress this
+enough. If you are planning to create your first game, there is a&nbsp;
+lot to learn. Even a simpler game will challenge your designs, and
+complex games don't necessarily mean fun games. When you understand
+Python, you can use Pygame to create a simple game in only one or two
+weeks. From there you'll need a surprising amount of time needed to add
+the polish to make that into a full presentable game.<br>
+<br>
+<br>
+<br>
+<br>
+<h3>Pygame Modules Overview</h3>
+<table cellpadding="2" cellspacing="2" border="1"
+ style="text-align: left; width: 100%;">
+  <tbody>
+    <tr>
+      <td style="vertical-align: top;">cdrom<br>
+cursors<br>
+display<br>
+draw<br>
+event<br>
+font<br>
+image<br>
+joystick<br>
+key<br>
+mouse<br>
+movie<br>
+sndarray<br>
+surfarray<br>
+time<br>
+transform</td>
+      <td style="vertical-align: top;">manage cdrom devices and audio
+playback<br>
+load cursor images, includes standard cursors<br>
+control the display window or screen<br>
+draw simple shapes onto a Surface<br>
+manage events and the event queue<br>
+create and render Truetype fonts<br>
+save and load images<br>
+manage joystick devices<br>
+manage the keyboard<br>
+manage the mouse<br>
+playback of mpeg movies<br>
+manipulate sounds with Numeric<br>
+manipulate images with Numeric<br>
+control timing<br>
+scale, rotate, and flip images<br>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<br>
+<br>
+<br>
+<br>
+<br>
+</body>
+</html>
+
+------------qpvg9DX2TJChqr1FO2FG13
+Content-Disposition: inline; filename=ball.gif
+Content-Type: image/gif; name=ball.gif
+Content-Location: http://pygame.info/docs/tut/intro/ball.gif
+Content-Transfer-Encoding: Base64
+
+R0lGODlhbwBvAOcCAPeEY/dzWv////e9pedzWv/v7/echN5jUudrWud7Y++Mc95z
+Wv+ljMZaSu+9rc5jUv/379bOzufn58ZjSu+Ea8ZzY/eUe/e1nPfGtffWzv/n3ufv
+9+eUe9bGvcbn996cjK3e7+fe3nPG5+e9tYTO5ym15wCt3u+cjDm13s6Ec7VjUtbW
+1t7n597n3gilzt6tnBit3nPG3rVSQpzW587n7xilzta1pc7e51Ktzs7W1sbGxgCc
+xnu91pTO3jm1572Ee0q950q93imcvca9tb2UjL3O1sa1rbWtpc6tnKWlpUKlzsbG
+vb29vZTO55y1tTmUtc6UjL21rSGcxlq93rW9xq3O1pS9xlq952u1zue9lIzG1vfW
+rf/Ga/+1Qv+tSv+1Uv/OjPfGe++lUvetUu+1a++lSu+1c++9jOecSta1lN6USsa9
+nM6UQs6thMale86MSsaMOZylpcaca62lnJSUlL2UY72MWs6UUr2EOZyUhLV7Oa2U
+c62ESpyEa6VzOZSMlISEhJRrQpxrOZSMe4yEe3uMlJR7a4xjOZx7Wmtzc4xzUnt7
+e3OEhKWEWu/OvWu93ufWxufGpd6lWoy1vd61e87Opc61hN6lY629va3Gzq2ljL2c
+e9acUt6te4R7e9bWzuetY5SMhLW1lP//////////////////////////////////
+////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////
+/////////////////yH5BAEKAP8ALAAAAABvAG8AAAj+AP8JHEiwoMGDCBMqXMiw
+ocOHECNKnEixokWJAAJo3MhR48WPICsKEDCAQAACKFOqNJmRY8iXMAeOHFnAwIED
+BBCs3IkyQQAABABoGBmzqMSZMwsouIkAwQKnCA405emTZQakAoxqTYh1JoMGN8Pe
+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
+yYwJApEJmfAPhBwHxzzN1FzNWRwQADs=
+
+------------qpvg9DX2TJChqr1FO2FG13
+Content-Disposition: inline; filename=blade.jpg
+Content-Type: image/jpeg; name=blade.jpg
+Content-Location: http://pygame.info/docs/tut/intro/blade.jpg
+Content-Transfer-Encoding: Base64
+
+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
+YpY3kfmKUuVRS9TjxypT6cjlY8+KMlDyub/evuc3V7fwdCtJqa07xQ3qm3e51/4e
+l2nC4Fo56XhOKOSDhklc5RfVX6/Kjstp9HFWYpES+RmtFskzDPaPaabQ2m3JntHR
+ptDaU2zodGm0aiBCiNRNFEaiE2jaBptADTaSnGUnFSTlHqk+hs4unXXsfNc3DOKZ
+dXmk8eoy6i0pxhvjtr6uTv1M3txmIdMWOLxMzPT6LtIhKGSO6EoyXS07PnOPw7xR
+qU8mPVRltpRufX1PS+D9PrMGLNDM5PBD4YylFq5W769a9TEZJm0Rpu2GK0m3L+f7
+ei2i2m20W07PPtjtFtNtobAbY7TrOPYsE+Canz03FRuNdVL937aO2m4YoSnOSjCK
+tt9EjpYRyeIMinKM8XC4u4xfKWofq/SP3/di/WnTH3ynqHiPCenhq+Lzw5nNYnBu
+ainUkmnTfZHS67JLWazNn7Tm2kuiXZfJUj6txSGl4PwPXZsGHHhcoNfBGrk+S+1n
+yuVRgkkeHLXhEVfSw3+JM3jpjixRT9TeeKMlVHHjOmcnzLj0OD0PqXANUtbwTTZb
+blGOyV9bXI7LaeO8C6+C87RSdOb3x5965/Z9x7bafTw250iXx89OGSYZ7Q2mu0Np
+1cdsto9pptHtBtntBpJW3S9zXaeZ8T6Pi2fFtxZZS0spK4YY1Jez7te6M3maxuIb
+x1i9tTOno9ofCpKLat9F6nzZ8D4tlqMtNq48/pb5tJd+RyNPwTi2HieCWmWoxT51
+J7nFetuXT8jE5JjqP1/Z2jBE/wB36fu+h0BOlx54aeEdTkjkzJfFKMdqfyA6vLLl
+UKgA0hUG0AIFtCgAKNotqAAOihu45xDU4stR0Wky7Hi75Jru/b2O8UEkkkklySQA
+Yp1t0y+J08f/AGhZZY+F6XCm0sma3Xel+Z88lbj1ADwep+pL6XpPpQ77wjwPDxfi
+OVZ6ePDj3OP8TfJfy6nRZPgfP1rl6gBiYjhE+7pSZnJaPZ23hfJKHiLQuLaUsiT+
+p8vxPrm0APV6T5ZeL13zwe0NoAet4hQ6AAg2joAAKHQAA6AAA//Z
+
+------------qpvg9DX2TJChqr1FO2FG13
+Content-Disposition: inline; filename=freedom.jpg
+Content-Type: image/jpeg; name=freedom.jpg
+Content-Location: http://pygame.info/docs/tut/intro/freedom.jpg
+Content-Transfer-Encoding: Base64
+
+/9j/4AAQSkZJRgABAQEASABIAAD/2wBDAAgGBgcGBQgHBwcJCQgKDBQNDAsLDBkS
+Ew8UHRofHh0aHBwgJC4nICIsIxwcKDcpLDAxNDQ0Hyc5PTgyPC4zNDL/2wBDAQkJ
+CQwLDBgNDRgyIRwhMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIy
+MjIyMjIyMjIyMjIyMjL/wAARCACWAMgDASIAAhEBAxEB/8QAHAAAAQUBAQEAAAAA
+AAAAAAAABAABAwUGAgcI/8QAORAAAgEDAwIEAwYFBAIDAAAAAQIDAAQRBRIhMUEG
+E1FhInGBFDKRobHRByNSYsEVQuHwJHIz0vH/xAAaAQACAwEBAAAAAAAAAAAAAAAA
+AQIDBAUG/8QALREAAgIBBAECAwgDAAAAAAAAAAECEQMSITFBBCJRE5GxBRQyYXGB
+wfAk0eH/2gAMAwEAAhEDEQA/AM3/AKRMunXenTASK58yHHZx2+v+TWTIO4YGAO2P
+3r0BxcRYbCtg5GV/+uKxGplbbUpRIAu8lwMcc9ufrUIqlRNgr9gSdp4OKm0+/u7J
+Tb28jK7kKCvUEDHHuw4+goC4vcplAVwRk+2a6hnEjhyVdsg46Zx0/arsfsVzXZYW
+dtYXXiZba7VbtZydsxJzkjOT754rQ32hWlkhS2tUUtwCFyaoJPKtfE1leQrJLHKp
+ZC3JDev/AHua199Mt1ZhgeozUoqluRbt7GI06RV1GSNsKQ3wrgkseBxxWpu7dUt9
+rqQdudpGOo4zVa/2SLw3czi2jW6hucG4UMZBlSUHXaFyGz34HXBqC01GE2DIJGkk
+zySc7uP1zUcmNRprslCd2VoQKSAAMHGaIitp41S4eCRYnJCSshCsR1APQ4yKN0OC
+CfWokuJPLj3E7sZ5xkdvWtg02m+f5h1i2MhD5KoxJ3AZwNuB+H71myZoYl6r/ZXx
+X+yemcn6aPNNUjwUk45yOnP1qlKj7Tuz/u6Vrdfs1e9urfTUkuIopyqMqk5A/wD0
+VXWPhi+vJ8mF155LDaB9T/irhEGnBpDNEiszsnCqM5ruLw9qEku6S3ljUAk5XsOv
+PStlp/ha0s1Dy/zpB26L/wA1qdS0C+g0+9QDa8MCs4MUiiNZBiM5K4POc4zjac88
+UtXsOvc8d1C/EzAWpbZnLFu49KF5YcYyeBnijb3RrizujGskM5PLeW33Tn3ru3sB
+CrSXu0InxADJ496TaRJRlN0kX2japcaXpYtIPvsr75Qe7DAxx0FRM0jLmSR5CuSN
+7E4oFNW01FCrcKAOnwn9qMilS4iWWJ9yNyDjrg+9QqrY1TaTCJLdookkLZ3dVxjG
+ajrqV2ncNIFJXpgcfOonbaKhjUtPr5NXmywSy/46qP1/M4mlCIaP0/TmFrE8o/nX
+sgUDusY5P44/OhNKsTquofGP/Hi+KQ+voK1axpLqgfAP2dNo6/CT+XQflVhkCnt4
+pJY5HQF487Cf9uetYnXZ/P1Wc5BCnYMe3/Oa28rFInZVLMqkhR3PpXnl3FPDIRPG
+6OefjGM+9TgDMvdnN3Kf7qVcznM0h/uP60qZWei6hZTadalmvp4l3Hy9rM4P06D8
+azOt3VzdxxvNIjFGKlwhBbPr+FXqeI59N8PX0K2sEkV6ixSs6ZZCOjA546+/NNLa
+tqOg2c7xBDcJ5KuQArDJ2njuMEfSsXiSyNvWv0/vRfld9GOSIPkjB9ef0qaGQxS4
+G1U6GmntprSQxNkKG2fWlDbksAxwT05zW+yii+WD7dbLbmUgxsCjL68kcfPP5VK+
+vx2qtC+SVOMelCxE2ZWRHK7uCfn3qy1PSrG/WHUGj4mUK+04AcVbdq0V1Tplt/Dq
+OLxPqOraWzrEs1rvhLAEtMp+Ac9sFgfmKqdW0m50rUHW8VIpXYjykUfCAMc44HPb
+H+Mw6TNFoWpQ3NoxhaNuSD2r3jVPDNh468O2muCLN95Ks6kYBOOcj1qT3x0xLadn
+hVrYy3NrcTRsvDxxgE43Fieny280WNDultngIlZ2wylGXA7YyeccelXGrSxaZPHA
+sckk0TEiCLOCccZA6454qW0kmuoHm80pK68Iyg+SQzYHvxisWh7uXH0NOzSpAKaj
+Y2F7bW8aCKKcMBmP7xUkErtJ756irW4u1gtpZw6SIuGUpk5U9+M+9BXOivb3ZmXU
+PLkhdyWeNXVHzyy7s7OfeqDW7y0ZlezDF0QRSS7tqunTH/NKMFd6tiafTRt9Hv8A
+R7g+bqE7iARltkJG9mAztGcVUeJfFGqTTXuiQXCrp0cpiJRVDTKhwhLADgAAADjF
+YzT45GkNxvAUEqEByMYx+NWQHOTn3ptNS5CWnhIjSIIBxXbIrY3KD8xW6m0jQNe8
+PBvDlvNDf2UfmXRuZQodcc4yeTn0qi0PwjrPiCaNbOzfynYAzuCEX3JqbxyQqM/s
+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
+
+------------qpvg9DX2TJChqr1FO2FG13--

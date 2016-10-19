@@ -1,0 +1,134 @@
+пример запроса:
+
+http://api.worldweatheronline.com/free/v1/weather.ashx?q=London&format=json&num_of_days=5&key=3rcap79crb4b9r8phwvqpbud
+
+пример ответа:
+
+
+{
+    "data": {
+        "current_condition": [{
+            "cloudcover": "50",
+            "humidity": "83",
+            "observation_time": "10:10 AM",
+            "precipMM": "0.1",
+            "pressure": "1004",
+            "temp_C": "18",
+            "temp_F": "64",
+            "visibility": "10",
+            "weatherCode": "116",
+            "weatherDesc": [{
+                "value": "Partly Cloudy"
+            }],
+            "weatherIconUrl": [{
+                "value": "http:\/\/cdn.worldweatheronline.net\/images\/wsymbols01_png_64\/wsymbol_0002_sunny_intervals.png"
+            }],
+            "winddir16Point": "SSW",
+            "winddirDegree": "210",
+            "windspeedKmph": "15",
+            "windspeedMiles": "9"
+        }],
+        "request": [{
+            "query": "London, United Kingdom",
+            "type": "City"
+        }],
+        "weather": [{
+            "date": "2013-10-25",
+            "precipMM": "2.6",
+            "tempMaxC": "19",
+            "tempMaxF": "65",
+            "tempMinC": "12",
+            "tempMinF": "54",
+            "weatherCode": "119",
+            "weatherDesc": [{
+                "value": "Cloudy"
+            }],
+            "weatherIconUrl": [{
+                "value": "http:\/\/cdn.worldweatheronline.net\/images\/wsymbols01_png_64\/wsymbol_0003_white_cloud.png"
+            }],
+            "winddir16Point": "SSW",
+            "winddirDegree": "211",
+            "winddirection": "SSW",
+            "windspeedKmph": "23",
+            "windspeedMiles": "15"
+        }, {
+            "date": "2013-10-26",
+            "precipMM": "0.4",
+            "tempMaxC": "17",
+            "tempMaxF": "63",
+            "tempMinC": "10",
+            "tempMinF": "51",
+            "weatherCode": "119",
+            "weatherDesc": [{
+                "value": "Cloudy"
+            }],
+            "weatherIconUrl": [{
+                "value": "http:\/\/cdn.worldweatheronline.net\/images\/wsymbols01_png_64\/wsymbol_0003_white_cloud.png"
+            }],
+            "winddir16Point": "SW",
+            "winddirDegree": "215",
+            "winddirection": "SW",
+            "windspeedKmph": "35",
+            "windspeedMiles": "22"
+        }, {
+            "date": "2013-10-27",
+            "precipMM": "4.2",
+            "tempMaxC": "15",
+            "tempMaxF": "59",
+            "tempMinC": "12",
+            "tempMinF": "54",
+            "weatherCode": "176",
+            "weatherDesc": [{
+                "value": "Patchy rain nearby"
+            }],
+            "weatherIconUrl": [{
+                "value": "http:\/\/cdn.worldweatheronline.net\/images\/wsymbols01_png_64\/wsymbol_0009_light_rain_showers.png"
+            }],
+            "winddir16Point": "WSW",
+            "winddirDegree": "246",
+            "winddirection": "WSW",
+            "windspeedKmph": "39",
+            "windspeedMiles": "24"
+        }, {
+            "date": "2013-10-28",
+            "precipMM": "4.6",
+            "tempMaxC": "13",
+            "tempMaxF": "55",
+            "tempMinC": "6",
+            "tempMinF": "43",
+            "weatherCode": "116",
+            "weatherDesc": [{
+                "value": "Partly Cloudy"
+            }],
+            "weatherIconUrl": [{
+                "value": "http:\/\/cdn.worldweatheronline.net\/images\/wsymbols01_png_64\/wsymbol_0002_sunny_intervals.png"
+            }],
+            "winddir16Point": "WSW",
+            "winddirDegree": "253",
+            "winddirection": "WSW",
+            "windspeedKmph": "48",
+            "windspeedMiles": "30"
+        }, {
+            "date": "2013-10-29",
+            "precipMM": "0.0",
+            "tempMaxC": "13",
+            "tempMaxF": "56",
+            "tempMinC": "4",
+            "tempMinF": "39",
+            "weatherCode": "116",
+            "weatherDesc": [{
+                "value": "Partly Cloudy"
+            }],
+            "weatherIconUrl": [{
+                "value": "http:\/\/cdn.worldweatheronline.net\/images\/wsymbols01_png_64\/wsymbol_0002_sunny_intervals.png"
+            }],
+            "winddir16Point": "WSW",
+            "winddirDegree": "257",
+            "winddirection": "WSW",
+            "windspeedKmph": "23",
+            "windspeedMiles": "14"
+        }]
+    }
+}
+
+

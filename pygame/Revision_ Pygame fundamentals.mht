@@ -1,0 +1,444 @@
+Content-Type: multipart/related; start=<op.mhtml.1383077683798.996a651034021f6a@192.168.0.100>; boundary=----------ShqgJEr3dgglf5NxDivnNd
+Content-Location: http://pygame.info/docs/tut/tom/games2.html
+Subject: =?utf-8?Q?Revision:=20Pygame=20fundamentals?=
+MIME-Version: 1.0
+
+------------ShqgJEr3dgglf5NxDivnNd
+Content-Disposition: inline; filename=games2.html
+Content-Type: text/html; name=games2.html
+Content-ID: <op.mhtml.1383077683798.996a651034021f6a@192.168.0.100>
+Content-Location: http://pygame.info/docs/tut/tom/games2.html
+Content-Transfer-Encoding: 8bit
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>Revision: Pygame fundamentals</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+HREF="MakeGames.html"><LINK
+REL="PREVIOUS"
+HREF="MakeGames.html"><LINK
+REL="NEXT"
+TITLE="Kicking things off"
+HREF="games3.html"> <style type="text/stylesheet">
+	<!--
+	PRE.PROGRAMLISTING	{ background-color: #EEEEEE; border-color: #333333; border-style: solid; border-width: thin }	-->
+ </style></HEAD
+><BODY
+CLASS="SECT1"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+>
+
+<DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+></TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="MakeGames.html"
+ACCESSKEY="P"
+>Prev</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="games3.html"
+ACCESSKEY="N"
+>Next</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="SECT1"
+><H1
+CLASS="SECT1"
+><A
+NAME="AEN49"
+></A
+>2. Revision: Pygame fundamentals</H1
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="AEN51"
+></A
+>2.1. The basic Pygame game</H2
+><P
+>For the sake of revision, and to ensure that you are familiar with the basic structure of a Pygame program, I'll briefly run through
+a basic Pygame program, which will display no more than a window with some text in it, that should, by the end, look something like
+this (though of course the window decoration will probably be different on your system):</P
+><DIV
+CLASS="MEDIAOBJECT"
+><P
+><IMG
+SRC="basic.png"></P
+></DIV
+><P
+>The full code for this example looks like this:</P
+><PRE
+CLASS="PROGRAMLISTING"
+>#!/usr/bin/python
+
+import pygame
+from pygame.locals import *
+
+def main():
+	# Initialise screen
+	pygame.init()
+	screen = pygame.display.set_mode((150, 50))
+	pygame.display.set_caption('Basic Pygame program')
+
+	# Fill background
+	background = pygame.Surface(screen.get_size())
+	background = background.convert()
+	background.fill((250, 250, 250))
+
+	# Display some text
+	font = pygame.font.Font(None, 36)
+	text = font.render("Hello There", 1, (10, 10, 10))
+	textpos = text.get_rect()
+	textpos.centerx = background.get_rect().centerx
+	background.blit(text, textpos)
+
+	# Blit everything to the screen
+	screen.blit(background, (0, 0))
+	pygame.display.flip()
+
+	# Event loop
+	while 1:
+		for event in pygame.event.get():
+			if event.type == QUIT:
+				return
+
+		screen.blit(background, (0, 0))
+		pygame.display.flip()
+
+
+if __name__ == '__main__': main()</PRE
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="AEN59"
+></A
+>2.2. Basic Pygame objects</H2
+><P
+>As you can see, the code consists of three main objects: the screen, the background, and the text. Each of these objects is created
+by first calling an instance of an in-built Pygame object, and then modifying it to fit our needs. The screen is a slightly special
+case, because we still modify the display through Pygame calls, rather than calling methods belonging to the screen object. But for
+all other Pygame objects, we first create the object as a copy of a Pygame object, giving it some attributes, and build our game
+objects from them.</P
+><P
+>With the background, we first create a Pygame Surface object, and make it the size of the screen. We then perform the convert()
+operation to convert the Surface to a single pixel format. This is more obviously necessary when we have several images and surfaces,
+all of different pixel formats, which makes rendering them quite slow. By converting all the surfaces, we can drastically speed up
+rendering times. Finally, we fill the background surface with white (255, 255, 255). These values are <I
+CLASS="FIRSTTERM"
+>RGB</I
+> (Red Green
+Blue), and can be worked out from any good paint program.</P
+><P
+>With the text, we require more than one object. First, we create a font object, which defines which font to use, and the size of the
+font. Then we create a text object, by using the <TT
+CLASS="FUNCTION"
+>render</TT
+> method that belongs to our font object, supplying three arguments:
+the text to be rendered, whether or not it should be anti-aliased (1=yes, 0=no), and the color of the text (again in RGB format). Next
+we create a third text object, which gets the rectangle for the text. The easiest way to understand this is to imagine drawing a
+rectangle that will surround all of the text; you can then use this rectangle to get/set the position of the text on the screen. So
+in this example we get the rectangle, set its <TT
+CLASS="FUNCTION"
+>centerx</TT
+> attribute to be the <TT
+CLASS="FUNCTION"
+>centerx</TT
+> attribute of the
+background (so the text's center will be the same as the background's center, i.e. the text will be centered on the screen on the x
+axis). We could also set the y coordinate, but it's not any different so I left the text at the top of the screen. As the screen is
+small anyway, it didn't seem necessary.</P
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="AEN68"
+></A
+>2.3. Blitting</H2
+><P
+>Now we have created our game objects, we need to actually render them. If we didn't and we ran the program, we'd just see a
+blank window, and the objects would remain invisible. The term used for rendering objects is <I
+CLASS="FIRSTTERM"
+>blitting</I
+>, which is where
+you copy the pixels belonging to said object onto the destination object. So to render the background object, you blit it onto the
+screen. In this example, to make things simple, we blit the text onto the background (so the background will now have a copy of the
+text on it), and then blit the background onto the screen.</P
+><P
+>Blitting is one of the slowest operations in any game, so you need to be careful not to blit too much onto the screen in every frame.
+If you have a background image, and a ball flying around the screen, then you could blit the background and then the ball in every
+frame, which would cover up the ball's previous position and render the new ball, but this would be pretty slow. A better solution is
+to blit the background onto the area that the ball previously occupied, which can be found by the ball's previous rectangle, and then
+blitting the ball, so that you are only blitting two small areas.</P
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="AEN73"
+></A
+>2.4. The event loop</H2
+><P
+>Once you've set the game up, you need to put it into a loop so that it will continuously run until the user signals that he/she wants
+to exit. So you start an open <TT
+CLASS="FUNCTION"
+>while</TT
+> loop, and then for each iteration of the loop, which will be each frame of the game,
+update the game. The first thing is to check for any Pygame events, which will be the user hitting the keyboard, clicking a mouse
+button, moving a joystick, resizing the window, or trying to close it. In this case, we simply want to watch out for for user trying
+to quit the game by closing the window, in which case the game should <TT
+CLASS="FUNCTION"
+>return</TT
+>, which will end the <TT
+CLASS="FUNCTION"
+>while</TT
+> loop.
+Then we simply need to re-blit the background, and flip (update) the display to have everything drawn. OK, as nothing moves or happens
+in this example, we don't strictly speaking need to re-blit the background in every iteration, but I put it in because when things are
+moving around on the screen, you will need to do all your blitting here.</P
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="AEN79"
+></A
+>2.5. Ta-da!</H2
+><P
+>And that's it - your most basic Pygame game! All games will take a form similar to this, but with lots more code for the actual game
+functions themselves, which are more to do your with programming, and less guided in structure by the workings of Pygame. This is what
+this tutorial is really about, and will now go onto.</P
+></DIV
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="MakeGames.html"
+ACCESSKEY="P"
+>Prev</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="MakeGames.html"
+ACCESSKEY="H"
+>Home</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="games3.html"
+ACCESSKEY="N"
+>Next</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+>&nbsp;</TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>Kicking things off</TD
+></TR
+></TABLE
+>
+
+</body>
+</html>
+
+
+
+</DIV
+></BODY
+></HTML
+>
+
+------------ShqgJEr3dgglf5NxDivnNd
+Content-Disposition: inline; filename=basic.png
+Content-Type: image/png; name=basic.png
+Content-Location: http://pygame.info/docs/tut/tom/basic.png
+Content-Transfer-Encoding: Base64
+
+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
+KislAATvqZHfeQByXl6WDktjZe06WZTeatmW7Nzhmj33s69MHP+30/50TpIFSBLE
+QGkQ3hBvLM/5Y6PHyvvrrj7Ega0021ysM26QYR31Uhek0v4fnGbn4MGOzh2uu33j
+3pgcfmVi8Mz46CtDAIHINCoQ9+noydsAnyzH+VG7Jvpr3zLHpZsXwyokJ+ZQCxJg
+zenmdLbNIUHuNscUqfReIGPhHcHV6/5M4OfDqenQuzChOJSCACqtVWhxwTbIJ8tw
+/tj5qL9G65xox0DjxnKZ2dYsKbEJt6BDAchPeUPT5l1ixMdESnPpxe51lObVcONW
+U5igskjRcfeGeGY5GYDk+lVOvH4CdXyYkb338ViP9/1V1ax1fIjAiUaM2pXiLeM6
+PsRYaMTS+Wu9v9YC4kakeByu99cPPRKDLtfja+0gOehG8+Flxld520I2dbXsUVCs
+tty+Zamry7ecJFZNXAvO/uLsF7u/uMzME29OuC3uupfhZqIeX2sT9fhai0jG13hf
+4v9Ff9372b0Vw+l1IsuHDvX1a61iY+Pr8G+G939pv3OXI2+Tzl3O/i/tP/XzU2sx
+6Of9vm/3tWZb5W1S3iazndm+b/f5eX+9CrwUBl8c7OzqNLXo+bueiXcmFudZTmVN
+sc1Q0f98v9vqJoeNNbhrIb5ifn5+fn4+s+Pw/PvzN/xQAhWXZq/OVr16+LHDVA0H
+DxysavmGib8c/qXVZC02mG5Ov/br15ZTi2XWqCLD0e8crbij1WS9/ebbycwrreyz
+/c9W3H2ZFqp+2nccNq3Zsq07btdHVuqF68PkT5Z7MR756iOLLV+/XS+/e7lqoxq0
+bGspXCncpHatiqS7V1HZdHM6efflW6j6yex4JG7XmxtfTzwTnRF1fbpr4s0JdVVN
+vDmx5/N7TOILP3hhpYNn/3P9XIze7Drx9InL714uXCk82/+s+W1Pfjo/8OOB9St+
+Gdxt7tmhs4Urhck/TsZVGH51OM6wisoSkbFp/trSmt0lVTwS37z++tqvX4u/JrtR
+csT+/sD3V9Rf23e2m5Sj3zmazPnU00+Z9N2f3X2T+uvvX/99nDj5x8kK1uoq+/Oh
+n8c5V2Rhyf76vumvBxfOX1f6/C5eFSSDP4DchVys3/GxO6oa8S56K7qpNxXl7znQ
+k0zveajnySNPAsi9k6tCWw9kd2Rj3W1xK66urrJd93Wt0UISBFn6m2E3c384CG/8
+1wSTv4JaDuJBuMKzTjr6O3fhTLgig+uF1VXW/JR2LRbKrq56f3hFiAttNVn+5Pos
+QtLN6fx0HoCf9+O2NF+NYgLtxmPtlV0Pd23I+jWTyRglnAnj8ROAYnXo0UO9X+nt
+/Urv2BtjK7KZvScaDCvmRwM/iL5m7s6svsRrwNorux7uugnr18VXZ6/OxmuSjvs6
+zLxj8o+T3X/dbRKtJiueICxz3vTT0z+NE5/tf9bMJJPLg6PHjy6nIquYN10/fe2V
+XZGFqp/1Wb8u5+rR45Vr+SSSs7tltuv8+/O7P7t7KYPp5vTNW7/eMH2NlV2Rhaqf
+jVu/9n2jr/vB7qqXjh4/2vu3vauwOfjCoLutcjoKwGqyzp4+a1sf2B/ZXXtl12wh
+0Yg3tb+az08Gf7Ln83vM3krLtpaH//7hiu23FfVXM2QdPX40Xsu272w/8s0jK+2p
+695f11jZFVm4UX89GL3v39r+eP394Q87svc+PjZ+AoC7fX/9/abaQf38tVZRf7+p
+NlF/v6kWUX9/uDZRj6+1ioXz13p8rSWo0h/0qsfXGsIGnb/WscGox9daRX39Wpuo
+r19rEfX1a22iHl9rFfX4Wpuox9daRD2+1ibq8bVWUY+vtYl6fK1F1ONrbaIeX2sV
+9fPX2kT9/LUWUT9/rU1U+f2rZTm9hwZK/yShJIGyr3X55ybLG8hKlX4QHP+/qzpq
+CcnfcdRRQxDU0LIt/mFe/B+nKvTrXKrrH6yOpTL8H1ENt0+7/9fuAAAAAElFTkSu
+QmCC
+
+------------ShqgJEr3dgglf5NxDivnNd--

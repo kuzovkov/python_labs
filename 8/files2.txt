@@ -1,0 +1,4 @@
+img/01.gif
+img/02.gif
+img/03.gif
+img/04.gif

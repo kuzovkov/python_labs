@@ -1,0 +1,65 @@
+[nnm-club.me]
+host: http://nnm-club.me
+url: /forum/tracker.php
+method: post
+plus: 0
+encode: cp1251
+color: #bbaa00
+var_search: nm
+var1: f
+val1: -1
+boundary: forumline tablesorter
+prefix: /forum/
+title_query: <td INSEN (class='genmed')>:tx
+link_query: <td INSEN (class='genmed')>.<a>:href
+size_query: <td INSEN (class='gensmall')>.:tx
+size_start: 0
+size_step: 3
+date_query: <td INSEN (class='gensmall')>:tx
+date_start: 2
+date_step: 3
+sid_query: <td INSEN (class='seedmed')>:tx
+licher_query: <td INSEN (class='leechmed')>:tx
+
+[tfile.me]
+host: http://tfile.me
+url: /forum/ssearch.php?q=
+method: get
+plus: 1
+encode: cp1251
+color: #aabb00
+title_query: <td INSEN (class='t')>:tx
+link_query: <td INSEN (class='t')>.<a>:href
+size_query: <td INSEN (class='dl')>:tx
+size_start: 0
+size_step: 3
+date_query: <td INSEN (class='ms')>:tx
+sid_query: <td INSEN (class='dl')>:tx
+sid_start: 1
+sid_step: 3
+licher_query: <td INSEN (class='dl')>:tx
+licher_start: 2
+licher_step: 3
+
+[rutracker.org]
+host: http://rutracker.org
+url: /forum/tracker.php
+method: post
+plus: 0
+encode: cp1251
+color: #bbaa00
+var_search: nm
+var1: max
+val1: 1
+boundary: forumline tablesorter
+cookie: bb_data=1-24459730-qHzZY1vwsOqjvSuOHeX7-1294481547-1385280557-1385280557-2882093672-0; spylog_test=1
+prefix: /forum/
+title_query: <td INSEN (class='row4 med tLeft t-title')>.<div (class='wbr t-title')>.<a>:tx
+link_query: <td INSEN (class='row4 med tLeft t-title')>.<div (class='wbr t-title')>.<a>:href
+size_query: <td INSEN (class='row4 small nowrap tor-size')>.<a>:tx
+date_query: <td INSEN (class='row4 small nowrap')>.<p>:tx
+sid_query: <td INSEN (class='row4 nowrap')>.<b>:tx
+licher_query: <td INSEN (class='row4 leechmed')>.<b>:tx
+
+[DEFAULT]
+proxy: 217.12.62.194:8080

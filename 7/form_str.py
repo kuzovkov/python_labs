@@ -1,0 +1,38 @@
+#coding=utf-8
+from Tkinter import *
+from test import *
+
+root=Tk()
+root.geometry('800x600')
+root.title('Вопрос str')
+
+i=6
+
+result={}
+
+def send():
+    global rsp_text
+    global result
+
+    
+    if rsp_text.get()==responses_str[i].decode('utf8'):
+        result.update({i:True})
+    else:
+        result.update({i:False})
+    
+
+    print result  
+    
+
+number=Label(root,text='Вопрос '+str(i)+' из '+str(len(questions))).pack()
+question=Label(root,text=questions[i],bg='#fff',width=100,height=30).pack()
+
+rsp_text=StringVar()
+
+pole=Entry(root,width=30,font='Arial 14',textvariable=rsp_text).pack()
+
+
+next_btn=Button(root,text='Отправить ответ', font='Arial 20', command=send).pack()
+
+root.mainloop()
+

@@ -1,0 +1,12 @@
+Key: 3rcap79crb4b9r8phwvqpbud
+Application
+kuzovkov_av_test
+ Key: 
+ 3rcap79crb4b9r8phwvqpbud 
+ Status: 
+ active 
+ Created: 
+2 seconds ago 
+Key Rate Limits
+3	Calls per second
+500	Calls per hour

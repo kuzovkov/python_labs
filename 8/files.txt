@@ -1,0 +1,8 @@
+img2/Chrysanthemum.jpg
+img2/Desert.jpg
+img2/Hydrangeas.jpg
+img2/Jellyfish.jpg
+img2/Koala.jpg
+img2/Lighthouse.jpg
+img2/Penguins.jpg
+img2/Tulips.jpg

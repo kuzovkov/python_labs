@@ -1,0 +1,462 @@
+Content-Type: multipart/related; start=<op.mhtml.1383077741289.8b6195103402186a@192.168.0.100>; boundary=----------DvEobWZgaUin8EGnY7t3Di
+Content-Location: http://pygame.info/docs/tut/tom/games5.html
+Subject: =?utf-8?Q?User-controllable=20objects?=
+MIME-Version: 1.0
+
+------------DvEobWZgaUin8EGnY7t3Di
+Content-Disposition: inline; filename=games5.html
+Content-Type: text/html; name=games5.html
+Content-ID: <op.mhtml.1383077741289.8b6195103402186a@192.168.0.100>
+Content-Location: http://pygame.info/docs/tut/tom/games5.html
+Content-Transfer-Encoding: 8bit
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>User-controllable objects</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+HREF="MakeGames.html"><LINK
+REL="PREVIOUS"
+TITLE="Game object classes"
+HREF="games4.html"><LINK
+REL="NEXT"
+TITLE="Putting it all together"
+HREF="games6.html"> <style type="text/stylesheet">
+	<!--
+	PRE.PROGRAMLISTING	{ background-color: #EEEEEE; border-color: #333333; border-style: solid; border-width: thin }	-->
+ </style></HEAD
+><BODY
+CLASS="SECT1"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+>
+
+<DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+></TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="games4.html"
+ACCESSKEY="P"
+>Prev</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="games6.html"
+ACCESSKEY="N"
+>Next</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="SECT1"
+><H1
+CLASS="SECT1"
+><A
+NAME="AEN158"
+></A
+>5. User-controllable objects</H1
+><P
+>So far you can create a Pygame window, and render a ball that will fly across the screen. The next step is to make some bats which
+the user can control. This is potentially far more simple than the ball, because it requires no physics (unless your user-controlled
+object will move in ways more complex than up and down, e.g. a platform character like Mario, in which case you'll need more physics).
+User-controllable objects are pretty easy to create, thanks to Pygame's event queue system, as you'll see.</P
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="AEN161"
+></A
+>5.1. A simple bat class</H2
+><P
+>The principle behind the bat class is similar to that of the ball class. You need an <TT
+CLASS="FUNCTION"
+>__init__</TT
+> function to initialise the
+ball (so you can create object instances for each bat), an <TT
+CLASS="FUNCTION"
+>update</TT
+> function to perform per-frame changes on the bat before
+it is blitted the bat to the screen, and the functions that will define what this class will actually do. Here's some sample code:</P
+><PRE
+CLASS="PROGRAMLISTING"
+>class Bat(pygame.sprite.Sprite):
+	"""Movable tennis 'bat' with which one hits the ball
+	Returns: bat object
+	Functions: reinit, update, moveup, movedown
+	Attributes: which, speed"""
+
+	def __init__(self, side):
+		pygame.sprite.Sprite.__init__(self)
+		self.image, self.rect = load_png('bat.png')
+		screen = pygame.display.get_surface()
+		self.area = screen.get_rect()
+		self.side = side
+		self.speed = 10
+		self.state = "still"
+		self.reinit()
+
+	def reinit(self):
+		self.state = "still"
+		self.movepos = [0,0]
+		if self.side == "left":
+			self.rect.midleft = self.area.midleft
+		elif self.side == "right":
+			self.rect.midright = self.area.midright
+
+	def update(self):
+		newpos = self.rect.move(self.movepos)
+		if self.area.contains(newpos):
+			self.rect = newpos
+		pygame.event.pump()
+
+	def moveup(self):
+		self.movepos[1] = self.movepos[1] - (self.speed)
+		self.state = "moveup"
+
+	def movedown(self):
+		self.movepos[1] = self.movepos[1] + (self.speed)
+		self.state = "movedown"</PRE
+><P
+>As you can see, this class is very similar to the ball class in its structure. But there are differences in what each function does.
+First of all, there is a reinit function, which is used when a round ends, and the bat needs to be set back in its starting place,
+with any attributes set back to their necessary values. Next, the way in which the bat is moved is a little more complex than with the
+ball, because here its movement is simple (up/down), but it relies on the user telling it to move, unlike the ball which just keeps
+moving in every frame. To make sense of how the ball moves, it is helpful to look at a quick diagram to show the sequence of events:</P
+><DIV
+CLASS="MEDIAOBJECT"
+><P
+><IMG
+SRC="event-flowchart.png"></P
+></DIV
+><P
+>What happens here is that the person controlling the bat pushes down on the key that moves the bat up. For each iteration of the main
+game loop (for every frame), if the key is still held down, then the <TT
+CLASS="FUNCTION"
+>state</TT
+> attribute of that bat object will be set to
+"moving", and the <TT
+CLASS="FUNCTION"
+>moveup</TT
+> function will be called, causing the ball's y position to be reduced by the value of the
+<TT
+CLASS="FUNCTION"
+>speed</TT
+> attribute (in this example, 10). In other words, so long as the key is held down, the bat will move up the screen
+by 10 pixels per frame. The <TT
+CLASS="FUNCTION"
+>state</TT
+> attribute isn't used here yet, but it's useful to know if you're dealing with spin, or
+would like some useful debugging output.</P
+><P
+>As soon as the player lets go of that key, the second set of boxes is invoked, and the <TT
+CLASS="FUNCTION"
+>state</TT
+> attribute of the bat object
+will be set back to "still", and the <TT
+CLASS="FUNCTION"
+>movepos</TT
+> attribute will be set back to [0,0], meaning that when the <TT
+CLASS="FUNCTION"
+>update</TT
+> function is called, it won't move the bat any more. So when the player lets go of the key, the bat stops moving. Simple!</P
+><DIV
+CLASS="SECT3"
+><H3
+CLASS="SECT3"
+><A
+NAME="AEN180"
+></A
+>5.1.1. Diversion 3: Pygame events</H3
+><P
+>So how do we know when the player is pushing keys down, and then releasing them? With the Pygame event queue system, dummy! It's a
+really easy system to use and understand, so this shouldn't take long :) You've already seen the event queue in action in the basic
+Pygame program, where it was used to check if the user was quitting the application. The code for moving the bat is about as simple
+as that:</P
+><PRE
+CLASS="PROGRAMLISTING"
+>for event in pygame.event.get():
+	if event.type == QUIT:
+		return
+	elif event.type == KEYDOWN:
+		if event.key == K_UP:
+			player.moveup()
+		if event.key == K_DOWN:
+			player.movedown()
+	elif event.type == KEYUP:
+		if event.key == K_UP or event.key == K_DOWN:
+			player.movepos = [0,0]
+			player.state = "still"</PRE
+><P
+>Here assume that you've already created an instance of a bat, and called the object <TT
+CLASS="FUNCTION"
+>player</TT
+>. You can see the familiar
+layout of the <TT
+CLASS="FUNCTION"
+>for</TT
+> structure, which iterates through each event found in the Pygame event queue, which is retrieved with
+the <TT
+CLASS="FUNCTION"
+>event.get()</TT
+> function. As the user hits keys, pushes mouse buttons and moves the joystick about, those actions are
+pumped into the Pygame event queue, and left there until dealt with. So in each iteration of the main game loop, you go through
+these events, checking if they're ones you want to deal with, and then dealing with them appropriately. The <TT
+CLASS="FUNCTION"
+>event.pump()</TT
+>
+function that was in the <TT
+CLASS="FUNCTION"
+>Bat.update</TT
+> function is then called in every iteration to pump out old events, and keep the queue
+current.</P
+><P
+>First we check if the user is quitting the program, and quit it if they are. Then we check if any keys are being pushed down, and if
+they are, we check if they're the designated keys for moving the bat up and down. If they are, then we call the appropriate moving
+function, and set the player state appropriately (though the states moveup and movedown and changed in the <TT
+CLASS="FUNCTION"
+>moveup()</TT
+> and
+<TT
+CLASS="FUNCTION"
+>movedown()</TT
+> functions, which makes for neater code, and doesn't break <SPAN
+CLASS="emphasis"
+><I
+CLASS="EMPHASIS"
+>encapsulation</I
+></SPAN
+>, which means that you
+assign attributes to the object itself, without referring to the name of the instance of that object). Notice here we have three
+states: still, moveup, and movedown. Again, these come in handy if you want to debug or calculate spin. We also check if any keys have
+been "let go" (i.e. are no longer being held down), and again if they're the right keys, we stop the bat from moving.</P
+></DIV
+></DIV
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="games4.html"
+ACCESSKEY="P"
+>Prev</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="MakeGames.html"
+ACCESSKEY="H"
+>Home</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="games6.html"
+ACCESSKEY="N"
+>Next</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>Game object classes</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+>&nbsp;</TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>Putting it all together</TD
+></TR
+></TABLE
+>
+
+</body>
+</html>
+
+
+
+</DIV
+></BODY
+></HTML
+>
+
+------------DvEobWZgaUin8EGnY7t3Di
+Content-Disposition: inline; filename=event-flowchart.png
+Content-Type: image/png; name=event-flowchart.png
+Content-Location: http://pygame.info/docs/tut/tom/event-flowchart.png
+Content-Transfer-Encoding: Base64
+
+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
+SUVORK5CYII=
+
+------------DvEobWZgaUin8EGnY7t3Di--

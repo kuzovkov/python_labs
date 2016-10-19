@@ -1,0 +1,10 @@
+[tfile.me]
+host: http://tfile.me
+url: /forum/ssearch.php?q=
+method: get
+proxy: no
+re: viewforum\.php\?f=\d+">([^<]*).*?(viewtopic.php\?t=[^"]*)">([^<]*).*?<b[^"]*"sd">(\d+).*?<b[^"]*"lc">(\d+).*?<a[^>]*>\s*([^<]*[M|G|K]B)
+
+
+[DEFAULT]
+proxy: 217.12.62.194:8080
